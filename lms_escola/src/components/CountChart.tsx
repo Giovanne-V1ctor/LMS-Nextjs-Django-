@@ -37,7 +37,6 @@ const CountChart = () => {
           <RadialBar
             background
             dataKey="count"
-            activeBar={<Rectangle fill="pink" stroke="blue" />}
           />
         </RadialBarChart>
       </ResponsiveContainer>
