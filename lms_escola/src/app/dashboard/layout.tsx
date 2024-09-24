@@ -11,7 +11,7 @@ export default function DashboardLayout({
   }>) {
       return <div className="min-h-screen flex">
         {/* LEFT */}
-        <div className="w-[14%] md:w-[8%] lg:w-[16%] xl:w-[14%] min-w-[50px] bg-red-50 p-4">
+        <div className="w-[14%] md:w-[8%] lg:w-[16%] xl:w-[14%] min-w-[50px] bg-[#F7F8FA] p-4">
           <Link href="/" className="flex items-center justify-center lg:justify-start gap-2">
           <Image src="/logo.png" alt="logo" width={32} height={32} />
           <span className="hidden lg:block">LMS Django Nextjs</span>
