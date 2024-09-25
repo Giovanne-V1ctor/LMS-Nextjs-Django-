@@ -69,3 +69,7 @@
 .rbc-day-slot{
     font-size: 14px !important;
 }
+
+.rbc-event:nth-child(1){
+    background-color: #e2f8ff !important;
+}
