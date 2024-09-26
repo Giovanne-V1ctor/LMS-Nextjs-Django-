@@ -1,6 +1,10 @@
+import Image from "next/image"
+
 const TableSearch = () => {
   return (
-    <div className=''>TableSearch</div>
+    <div className=''>
+        <Image />
+    </div>
   )
 }
 
