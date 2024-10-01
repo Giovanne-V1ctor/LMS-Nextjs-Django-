@@ -291,6 +291,18 @@ export const deleteClass = async (id: number) => {
   }
 };
 
+export const getTeachers = async (): Promise<Teacher[]> => {
+  const client = await pool.connect();
+  try {
+    const res = await client.query("SELECT * FROM teachersdata");
+    return res.rows;
+  } catch (err) {
+    console.error(err);
+    return [];
+  } finally {
+    client.release();
+  }
+};
 
 // Função para criar um novo professor
 export const createTeacher = async (data: Teacher) => {

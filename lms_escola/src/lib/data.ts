@@ -916,6 +916,89 @@ export const announcementsData = [
   },
 ];
 
+export const attendancesData = [
+  {
+    id: 1,
+    class: "4A",
+    attendance: "80%",
+    absent: "20%",
+    subject: "Math",
+    date: "2025-01-01",
+  },
+  {
+    id: 2,
+    class: "3A",
+    attendance: "60%",
+    absent: "40%",
+    subject: "Science",
+    date: "2025-01-01",
+  },
+  {
+    id: 3,
+    class: "3B",
+    attendance: "80%",
+    absent: "20%",
+    subject: "Math",
+    date: "2025-01-01",
+  },
+  {
+    id: 4,
+    class: "6A",
+    attendance: "60%",
+    absent: "40%",
+    subject: "Science",
+    date: "2025-01-01",
+  },
+  {
+    id: 5,
+    class: "8C",
+    attendance: "55%",
+    absent: "45%",
+    subject: "Biology",
+    date: "2025-01-01",
+  },
+  {
+    id: 6,
+    class: "2A",
+    attendance: "37%",
+    absent: "63%",
+    subject: "Chemistry",
+    date: "2025-01-01",
+  },
+  {
+    id: 7,
+    class: "4C",
+    attendance: "80%",
+    absent: "20%",
+    subject: "Math",
+    date: "2025-01-01",
+  },
+  {
+    id: 8,
+    class: "4B",
+    attendance: "22%",
+    absent: "78%",
+    subject: "History",
+    date: "2025-01-01",
+  },
+  {
+    id: 9,
+    class: "3C",
+    attendance: "80%",
+    absent: "20%",
+    subject: "Math",
+    date: "2025-01-01",
+  },
+  {
+    id: 10,
+    class: "1C",
+    attendance: "100%",
+    absent: "0%",
+    subject: "English",
+    date: "2025-01-01",
+  },
+];
+
 
 // YOU SHOULD CHANGE THE DATES OF THE EVENTS TO THE CURRENT DATE TO SEE THE EVENTS ON THE CALENDAR
 export const calendarEvents = [
