@@ -38,7 +38,17 @@ const Table = ({
           ))}
         </tr>
       </thead>
-      <tbody>{data.map((item) => modifiedRenderRow(item))}</tbody>
+      <tbody>
+        {data.length > 0 ? (
+          data.map((item) => modifiedRenderRow(item))
+        ) : (
+          <tr>
+            <td colSpan={columns.length} className="text-center py-4">
+              Nenhum dado encontrado.
+            </td>
+          </tr>
+        )}
+      </tbody>
     </table>
   );
 };
