@@ -49,15 +49,22 @@ const columns = [
 
 const TeacherListPage = () => {
   const [teachers, setTeachers] = useState<Teacher[]>([]); // Estado para armazenar os professores
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5); // Número de itens por página
+  const [totalItems, setTotalItems] = useState(0); // Total de professores
 
   useEffect(() => {
     const fetchTeachers = async () => {
       const data = await getTeachers(); // Chamando a função para buscar professores
       console.log(data);
       setTeachers(data); // Atualizando o estado
+      setTotalItems(data.length);
     };
     fetchTeachers();
   }, []); // O array vazio garante que a função seja chamada apenas uma vez
+
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
 
   const renderRow = (item: Teacher) => (
     <tr
@@ -99,6 +106,15 @@ const TeacherListPage = () => {
     </tr>
   );
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const currentItems = teachers.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   return (
     <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0">
       {/* TOP */}
@@ -118,9 +134,12 @@ const TeacherListPage = () => {
         </div>
       </div>
       {/* LIST */}
-      <Table columns={columns} renderRow={renderRow} data={teachers} />
+      <Table columns={columns} renderRow={renderRow} data={currentItems} />
       {/* PAGINNATION */}
-      <Pagination />
+      <Pagination 
+      currentPage={currentPage}
+      totalPages={totalPages}
+      onPageChange={handlePageChange} />
     </div>
   );
 };

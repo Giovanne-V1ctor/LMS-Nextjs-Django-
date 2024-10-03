@@ -6,7 +6,7 @@ import { Pool } from "pg";
 const pool = new Pool({
   user: "postgres",
   host: "localhost",
-  database: "lms_escola",
+  database: "postgres",
   password: "6G2D1qw2",
   port: 5432,
 });
@@ -102,28 +102,36 @@ type Announcement = {
   date: Date; // Use Date para garantir que o formato de data esteja correto
 };
 
-export const createUser = async (name: string, email: string, password: string, role: string) => {
+type User = {
+  id?: number;
+  name: string;
+  email: string;
+  password: string;
+  role: string;
+}
+
+export const createUser = async (data: {name: string, email: string, password: string, role: string}) => {
   try {
     // Hash a senha antes de armazená-la
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(data.password, 10);
     
     // Inserir o novo usuário na tabela
     const result = await pool.query(
       'INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4) RETURNING *',
-      [name, email, hashedPassword, role]
+      [data.name, data.email, hashedPassword, data.role]
     );
 
     return result.rows[0]; // Retorna o usuário criado
-  } catch (error) {
-    throw new Error(error.message);
+  } catch (err) {
+    return { success: false, error: true };
   }
 };
 
 // Função de autenticação
-export const authenticateUser = async (email: string, password: string) => {
+export const authenticateUser = async (data: {email: string, password: string}) => {
   try {
     // Verificar se o usuário existe
-    const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    const result = await pool.query('SELECT * FROM users WHERE email = $1', [data.email]);
 
     if (result.rows.length === 0) {
       throw new Error('Usuário ou senha inválidos');
@@ -132,7 +140,7 @@ export const authenticateUser = async (email: string, password: string) => {
     const user = result.rows[0];
 
     // Verificar a senha
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(data.password, user.password);
 
     if (!isPasswordValid) {
       throw new Error('Usuário ou senha inválidos');
@@ -141,8 +149,8 @@ export const authenticateUser = async (email: string, password: string) => {
     // Aqui você pode gerar um token ou retornar os dados do usuário
     const token = 'seu-token-aqui'; // Gere um token apropriado
     return { token, user: { id: user.id, email: user.email } };
-  } catch (error) {
-    throw new Error(error.message);
+  } catch (err) {
+    return { success: false, error: true };
   }
 };
 
@@ -442,6 +450,19 @@ export const deleteTeacher = async (id: number) => {
     await client.query("ROLLBACK");
     console.error(err);
     return { success: false, error: true };
+  } finally {
+    client.release();
+  }
+};
+
+export const getStudents = async (): Promise<Student[]> => {
+  const client = await pool.connect();
+  try {
+    const res = await client.query("SELECT * FROM studentsdata");
+    return res.rows;
+  } catch (err) {
+    console.error(err);
+    return [];
   } finally {
     client.release();
   }
